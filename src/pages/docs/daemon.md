@@ -3,10 +3,6 @@ title: Installation
 description: Learn how to install Skyport Daemon.
 ---
 
-Learn how to install Skyport Daemon.
-
----
-
 ## Dependencies
 
 * Node.js `v18` and higher (Nodejs `v22` recommended).

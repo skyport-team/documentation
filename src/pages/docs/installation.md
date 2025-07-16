@@ -3,10 +3,6 @@ title: Installation
 description: Learn how to install Skyport.
 ---
 
-Learn how to install Skyport.
-
----
-
 ## Picking a Server OS
 
 Skyport runs on a wide range of operating systems, so pick whichever you are most comfortable using.

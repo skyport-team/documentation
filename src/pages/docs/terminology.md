@@ -3,10 +3,6 @@ title: Terminology
 description: Learn more about Skyport
 ---
 
-Learn more about how Skyport works.
-
----
-
 # Terminology
 **Panel** — This refers to the Skyport Panel itself, and is what allows you to add additional
 nodes and instances to the system.

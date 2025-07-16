@@ -3,10 +3,6 @@ title: How do you make an omelette?
 description: Learn how to make an omelette using the Skyport Panel.
 ---
 
-Learn how to make an omelette using the Skyport Panel.
-
----
-
 # This is a Panel, not a kitchen.
 
 However, here's an omelette recipe:
