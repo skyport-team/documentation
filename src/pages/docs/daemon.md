@@ -31,7 +31,7 @@ The following commands will download the Skyport Daemon into /etc/skyportd and u
 
 ``` bash
 cd /etc
-git clone --branch 0.1.0-beta7 https://github.com/skyportlabs/skyportd
+git clone --branch 0.1.0-beta7 https://github.com/skyport-team/skyportd
 cd skyportd
 npm install
 ```

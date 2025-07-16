@@ -1,7 +1,7 @@
-import { Fragment } from 'react'
-import Image from 'next/future/image'
 import clsx from 'clsx'
+import Image from 'next/future/image'
 import Highlight, { defaultProps } from 'prism-react-renderer'
+import { Fragment } from 'react'
 
 import { Button } from '@/components/Button'
 import { HeroBackground } from '@/components/HeroBackground'
@@ -56,7 +56,7 @@ export function Hero() {
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button href="/docs/installation">Get started</Button>
-                <Button href="https://github.com/skyportlabs" variant="secondary">
+                <Button href="https://github.com/skyport-team" variant="secondary">
                   View on GitHub
                 </Button>
               </div>
