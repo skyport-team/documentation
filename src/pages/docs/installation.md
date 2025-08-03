@@ -15,8 +15,8 @@ Skyport runs on a wide range of operating systems, so pick whichever you are mos
 |                  | 8       | ✅ | Note that CentOS 8 is EOL. Use Rocky or Alma Linux.         |
 | **Debian**       | 11      | ✅ |                                                             |
 |                  | 12      | ✅ |                                                             |
-| **Windows**      | 11      | ✅ |                                                             |
-|                  | 10      | ✅ |                                                             |
+| **Windows**      | 11      | ✅ | **⚠️ Limitation: Minecraft servers are not fully supported** |
+|                  | 10      | ✅ | **⚠️ Limitation: Minecraft servers are not fully supported** |
 | **macOS**        | 10.15+  | ✅ |                                                             |
 
 ## Dependencies
@@ -52,6 +52,12 @@ npm install
 ```
 
 ### Seed & Create a User
+
+Before creating a user, rename the example configuration file:
+
+```bash
+mv example_config.json config.json
+```
 
 You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
 
