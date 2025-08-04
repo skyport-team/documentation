@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://skyport.dev/sitemap.xml
+
+# Crawl-delay to prevent overwhelming the server
+Crawl-delay: 10
+
+# Directories to exclude
+Disallow: /api/
+Disallow: /private/
+
+# Specific file exclusions
+Disallow: /404.html
+Disallow: /500.html
