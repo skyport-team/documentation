@@ -7,21 +7,17 @@ description: Learn how to install Skyport.
 
 Skyport runs on a wide range of operating systems, so pick whichever you are most comfortable using.
 
-| Operating System | Version |     Supported      | Notes                                                       |
-|------------------|---------|:------------------:|-------------------------------------------------------------|
-| **Ubuntu**       | 24.04   | ✅ | Documentation written assuming Ubuntu 24.04 as the OS. |
-|                  | 22.04   | ✅ |                                                             |
-| **CentOS**       | 7       | ✅ | Extra repos are required.                                   |
-|                  | 8       | ✅ | Note that CentOS 8 is EOL. Use Rocky or Alma Linux.         |
-| **Debian**       | 11      | ✅ |                                                             |
-|                  | 12      | ✅ |                                                             |
-| **Windows**      | 11      | ✅ | **⚠️ Limitation: Minecraft servers are not fully supported** |
-|                  | 10      | ✅ | **⚠️ Limitation: Minecraft servers are not fully supported** |
-| **macOS**        | 10.15+  | ✅ |                                                             |
+| Operating System       | Versions             | Support Status     | Additional Notes                 |
+| ---------------------- | -------------------- | ------------------ | -------------------------------- |
+| **Ubuntu**             | 22.04 LTS, 24.04 LTS | ✅ Full Support    | Recommended for most users       |
+| **CentOS/Rocky Linux** | 7, 8                 | ✅ Supported       | Use Rocky Linux for CentOS 8     |
+| **Debian**             | 11, 12               | ✅ Full Support    | Stable and secure                |
+| **Windows**            | 10, 11               | ⚠️ Partial Support | Limited Minecraft server support |
+| **macOS**              | 10.15+               | ✅ Supported       | Community-tested                 |
 
 ## Dependencies
 
-* Node.js `v18` and higher (Nodejs `v22` recommended).
+- Node.js `v18` and higher (Nodejs `v22` recommended).
 
 ### Example Dependency Installation
 
@@ -42,7 +38,7 @@ sudo apt install -y nodejs git
 
 The following commands will download the Skyport Panel into /etc/skyport and use npm to install the required packages:
 
-``` bash
+```bash
 cd /etc
 # Soon instead use : git clone https://github.com/skyport-team/panel
 # git clone --branch 0.1.0-beta6 https://github.com/skyport-team/panel
@@ -61,7 +57,7 @@ mv example_config.json config.json
 
 You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
 
-``` bash
+```bash
 npm run seed
 npm run createUser
 ```
@@ -69,7 +65,8 @@ npm run createUser
 ### Setup Complete
 
 All you need to do now is start Skyport:
-``` bash
+
+```bash
 node .
 ```
 
