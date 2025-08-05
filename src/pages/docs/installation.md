@@ -12,7 +12,7 @@ Skyport runs on a wide range of operating systems, so pick whichever you are mos
 | **Ubuntu**             | 22.04 LTS, 24.04 LTS | ✅ Full Support    | Recommended for most users       |
 | **CentOS/Rocky Linux** | 7, 8                 | ✅ Supported       | Use Rocky Linux for CentOS 8     |
 | **Debian**             | 11, 12               | ✅ Full Support    | Stable and secure                |
-| **Windows**            | 10, 11               | ⚠️ Partial Support | Limited Minecraft server support |
+| **Windows**            | 10, 11               | ✅ Supported       | Semi-stable, mainly for dev      |
 | **macOS**              | 10.15+               | ✅ Supported       | Community-tested                 |
 
 ## Dependencies
