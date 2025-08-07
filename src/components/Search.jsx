@@ -5,9 +5,9 @@ import Router from 'next/router'
 import { DocSearchModal, useDocSearchKeyboardEvents } from '@docsearch/react'
 
 const docSearchConfig = {
-  appId: process.env.NEXT_PUBLIC_DOCSEARCH_APP_ID,
-  apiKey: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY,
-  indexName: process.env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME,
+  appId: process.env.NEXT_PUBLIC_DOCSEARCH_APP_ID || '',
+  apiKey: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY || '',
+  indexName: process.env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME || '',
 }
 
 function Hit({ hit, children }) {
@@ -23,8 +23,13 @@ function SearchIcon(props) {
 }
 
 export function Search() {
+  if (!docSearchConfig.appId || !docSearchConfig.apiKey || !docSearchConfig.indexName) {
+    console.warn('DocSearch configuration is incomplete. Please set the environment variables.')
+    return null
+  }
+
   let [isOpen, setIsOpen] = useState(false)
-  let [modifierKey, setModifierKey] = useState()
+  let [modifierKey, setModifierKey] = useState('')
 
   const onOpen = useCallback(() => {
     setIsOpen(true)
@@ -37,9 +42,16 @@ export function Search() {
   useDocSearchKeyboardEvents({ isOpen, onOpen, onClose })
 
   useEffect(() => {
-    setModifierKey(
-      /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? '⌘' : 'Ctrl '
-    )
+    try {
+      if (typeof navigator !== 'undefined' && typeof navigator.platform === 'string') {
+        setModifierKey(
+          /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform) ? '⌘' : 'Ctrl '
+        )
+      }
+    } catch (error) {
+      console.error('Error detecting platform:', error)
+      setModifierKey('Ctrl ')
+    }
   }, [])
 
   return (
@@ -64,7 +76,7 @@ export function Search() {
         createPortal(
           <DocSearchModal
             {...docSearchConfig}
-            initialScrollY={window.scrollY}
+            initialScrollY={typeof window !== 'undefined' ? window.scrollY : 0}
             onClose={onClose}
             hitComponent={Hit}
             navigator={{
