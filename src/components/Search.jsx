@@ -23,11 +23,6 @@ function SearchIcon(props) {
 }
 
 export function Search() {
-  if (!docSearchConfig.appId || !docSearchConfig.apiKey || !docSearchConfig.indexName) {
-    console.warn('DocSearch configuration is incomplete. Please set the environment variables.')
-    return null
-  }
-
   let [isOpen, setIsOpen] = useState(false)
   let [modifierKey, setModifierKey] = useState('')
 
