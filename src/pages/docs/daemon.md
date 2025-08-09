@@ -14,7 +14,7 @@ description: Learn how to install Skyport Daemon.
 
 The commands below are an example of how to install dependencies on Ubuntu 24.04:
 
-```sh
+```bash
 # Install Docker
 curl -sSL https://get.docker.com/ | CHANNEL=stable bash
 
@@ -31,7 +31,7 @@ sudo apt install -y nodejs git
 
 The Node Version Manager (NVM) provides more flexibility in managing Node.js versions:
 
-```sh
+```bash
 # Install Docker
 curl -sSL https://get.docker.com/ | CHANNEL=stable bash
 

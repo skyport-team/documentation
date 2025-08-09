@@ -24,7 +24,7 @@ Skyport runs on a wide range of operating systems, so pick whichever you are mos
 The commands below are simply an example of how you might install these dependencies on Ubuntu 24.04. Please consult with your
 operating system's package manager to determine the correct packages to install.
 
-```sh
+```bash
 # Ubuntu/Debian
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
