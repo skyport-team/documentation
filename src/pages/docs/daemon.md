@@ -55,7 +55,7 @@ The following commands will download the Skyport Daemon into /etc/skyportd and u
 
 ```bash
 cd /etc
-git clone --branch 0.1.0-beta9 https://github.com/skyport-team/skyportd
+git clone https://github.com/skyport-team/skyportd
 cd skyportd
 npm install
 
@@ -67,6 +67,31 @@ You can then add the node to the Panel and get the configure command by clicking
 ### Setup Complete
 
 All you need to do now is start skyportd:
+
+#### Method 1: Direct Start (Development)
+
 ```bash
 node .
+```
+
+#### Method 2: Using PM2 (Recommended for Production)
+
+PM2 is a process manager that helps keep your daemon running and provides features like auto-restart, monitoring, and log management:
+
+```bash
+# Install PM2 globally
+npm install -g pm2
+
+# Start Skyport Daemon with PM2
+pm2 start index.js --name "skyportd"
+
+# Enable PM2 to start on system boot
+pm2 startup
+pm2 save
+
+# Useful PM2 commands
+pm2 status          # Check status
+pm2 logs skyportd  # View logs
+pm2 restart skyportd  # Restart daemon
+pm2 stop skyportd     # Stop daemon
 ```
