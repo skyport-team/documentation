@@ -54,7 +54,7 @@ export function Hero() {
               <p className="mt-3 text-2xl tracking-tight text-neutral-400">
                 Skyport is an open source panel for managing and operating game
                 servers and applications built using Node.js with Express and
-                Dockerode.
+                Docker.
               </p>
               <div className="mt-8 flex gap-4 md:justify-center lg:justify-start">
                 <Button href="/docs/installation">Get started</Button>
