@@ -87,6 +87,7 @@ mv example_config.json config.json
 You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
 
 ```bash
+npm link
 npm run seed
 npm run createUser
 ```
