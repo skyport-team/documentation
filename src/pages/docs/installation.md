@@ -73,7 +73,7 @@ cd /etc
 git clone https://github.com/skyport-team/panel
 mv panel skyport
 cd skyport
-npm install
+npm install --production
 ```
 
 ### Seed & Create a User
