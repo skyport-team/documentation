@@ -4,14 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
-    "build": "next build --webpack && node scripts/generate-sitemap.js",
+    "build": "next build --webpack && node scripts/generate-sitemap.js && node scripts/generate-search-index.js",
     "start": "next start",
     "lint": "next lint",
     "generate-sitemap": "node scripts/generate-sitemap.js"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
-    "@docsearch/react": "^4.6.3",
     "@headlessui/react": "^2.2.10",
     "@markdoc/markdoc": "^0.5.7",
     "@markdoc/next.js": "^0.5.0",
@@ -20,6 +19,7 @@
     "autoprefixer": "^10.5.0",
     "clsx": "^2.1.1",
     "focus-visible": "^5.2.1",
+    "fuse.js": "^7.3.0",
     "next": "^16.2.6",
     "postcss-focus-visible": "^11.0.0",
     "postcss-import": "^16.1.1",

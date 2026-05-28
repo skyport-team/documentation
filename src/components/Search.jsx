@@ -1,18 +1,8 @@
-import { useCallback, useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
+import { useEffect, useState, useRef, Fragment } from 'react'
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import Link from 'next/link'
 import Router from 'next/router'
-import { DocSearchModal, useDocSearchKeyboardEvents } from '@docsearch/react'
-
-const docSearchConfig = {
-  appId: process.env.NEXT_PUBLIC_DOCSEARCH_APP_ID || '',
-  apiKey: process.env.NEXT_PUBLIC_DOCSEARCH_API_KEY || '',
-  indexName: process.env.NEXT_PUBLIC_DOCSEARCH_INDEX_NAME || '',
-}
-
-function Hit({ hit, children }) {
-  return <Link href={hit.url}>{children}</Link>
-}
+import Fuse from 'fuse.js'
 
 function SearchIcon(props) {
   return (
@@ -25,16 +15,9 @@ function SearchIcon(props) {
 export function Search() {
   let [isOpen, setIsOpen] = useState(false)
   let [modifierKey, setModifierKey] = useState('')
-
-  const onOpen = useCallback(() => {
-    setIsOpen(true)
-  }, [setIsOpen])
-
-  const onClose = useCallback(() => {
-    setIsOpen(false)
-  }, [setIsOpen])
-
-  useDocSearchKeyboardEvents({ isOpen, onOpen, onClose })
+  let [query, setQuery] = useState('')
+  let [results, setResults] = useState([])
+  let fuseRef = useRef(null)
 
   useEffect(() => {
     try {
@@ -44,10 +27,50 @@ export function Search() {
         )
       }
     } catch (error) {
-      console.error('Error detecting platform:', error)
       setModifierKey('Ctrl ')
     }
+
+    fetch('/search-index.json')
+      .then((res) => res.json())
+      .then((data) => {
+        fuseRef.current = new Fuse(data, {
+          keys: [
+            { name: 'title', weight: 3 },
+            { name: 'description', weight: 2 },
+            { name: 'content', weight: 1 }
+          ],
+          threshold: 0.3,
+          ignoreLocation: true,
+          includeMatches: true
+        })
+      })
+      .catch((err) => console.error("Error loading search index", err))
   }, [])
+
+  useEffect(() => {
+    function onKeyDown(event) {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+        event.preventDefault()
+        setIsOpen(true)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  useEffect(() => {
+    if (query && fuseRef.current) {
+      setResults(fuseRef.current.search(query).slice(0, 10))
+    } else {
+      setResults([])
+    }
+  }, [query])
+
+  function onOpen() { setIsOpen(true) }
+  function onClose() { 
+    setIsOpen(false)
+    setQuery('') 
+  }
 
   return (
     <>
@@ -67,21 +90,80 @@ export function Search() {
           </kbd>
         )}
       </button>
-      {isOpen &&
-        createPortal(
-          <DocSearchModal
-            {...docSearchConfig}
-            initialScrollY={typeof window !== 'undefined' ? window.scrollY : 0}
-            onClose={onClose}
-            hitComponent={Hit}
-            navigator={{
-              navigate({ itemUrl }) {
-                Router.push(itemUrl)
-              },
-            }}
-          />,
-          document.body
-        )}
+
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50" onClose={onClose}>
+          <TransitionChild
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm transition-opacity" />
+          </TransitionChild>
+
+          <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
+            <TransitionChild
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <DialogPanel className="mx-auto max-w-xl transform divide-y divide-neutral-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all dark:divide-neutral-700 dark:bg-neutral-800 dark:ring-neutral-700">
+                <div className="relative">
+                  <SearchIcon className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 fill-neutral-400" aria-hidden="true" />
+                  <input
+                    type="text"
+                    className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-neutral-900 placeholder:text-neutral-400 focus:ring-0 sm:text-sm dark:text-white outline-none"
+                    placeholder="Search documentation..."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    autoFocus
+                  />
+                </div>
+
+                {results.length > 0 && (
+                  <ul className="max-h-96 overflow-y-auto p-2 text-sm text-neutral-700 dark:text-neutral-300">
+                    {results.map((result) => (
+                      <li key={result.item.url}>
+                        <Link 
+                          href={result.item.url}
+                          onClick={onClose}
+                          className="group flex cursor-default select-none items-center rounded-md px-3 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-700/50"
+                        >
+                          <div className="flex-auto">
+                            <p className="font-semibold text-neutral-900 dark:text-white">{result.item.title}</p>
+                            {result.item.description && (
+                              <p className="mt-1 text-xs text-neutral-500 dark:text-neutral-400 line-clamp-1">{result.item.description}</p>
+                            )}
+                          </div>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {query && results.length === 0 && (
+                  <p className="p-4 text-sm text-neutral-500 dark:text-neutral-400 text-center">
+                    No results found for "{query}".
+                  </p>
+                )}
+                {!query && (
+                  <div className="p-4 text-xs text-neutral-400 dark:text-neutral-500 text-center">
+                    Try searching for "API", "Installation", etc.
+                  </div>
+                )}
+              </DialogPanel>
+            </TransitionChild>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   )
 }
