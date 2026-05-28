@@ -5,9 +5,7 @@ async function generateSitemap() {
   const { globby } = await import('globby')
 
   const pages = await globby([
-    'src/pages/**/*.{js,jsx,md,mdx}',
-    '!src/pages/_*.{js,jsx}',
-    '!src/pages/api',
+    'src/content/**/*.{md,mdx}',
   ])
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -15,9 +13,7 @@ async function generateSitemap() {
   ${pages
     .map((page) => {
       const route = page
-        .replace('src/pages', '')
-        .replace('.js', '')
-        .replace('.jsx', '')
+        .replace('src/content', '')
         .replace('.md', '')
         .replace('.mdx', '')
         .replace('/index', '')

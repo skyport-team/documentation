@@ -5,7 +5,7 @@ async function generateSearchIndex() {
   const { globby } = await import('globby')
 
   const pages = await globby([
-    'src/pages/**/*.{md,mdx}',
+    'src/content/**/*.{md,mdx}',
   ])
 
   const index = pages.map((page) => {
@@ -25,7 +25,7 @@ async function generateSearchIndex() {
     }
 
     const route = page
-        .replace('src/pages', '')
+        .replace('src/content', '')
         .replace('.md', '')
         .replace('.mdx', '')
         .replace('/index', '')

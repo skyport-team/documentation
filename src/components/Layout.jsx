@@ -1,6 +1,8 @@
+"use client"
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
 import { Hero } from '@/components/Hero'
@@ -127,14 +129,14 @@ function useTableOfContents(tableOfContents) {
 }
 
 export function Layout({ children, title, tableOfContents }) {
-  let router = useRouter()
-  let isHomePage = router.pathname === '/'
+  let pathname = usePathname()
+  let isHomePage = pathname === '/'
   let allLinks = navigation.flatMap((section) => section.links)
-  let linkIndex = allLinks.findIndex((link) => link.href === router.pathname)
+  let linkIndex = allLinks.findIndex((link) => link.href === pathname)
   let previousPage = allLinks[linkIndex - 1]
   let nextPage = allLinks[linkIndex + 1]
   let section = navigation.find((section) =>
-    section.links.find((link) => link.href === router.pathname)
+    section.links.find((link) => link.href === pathname)
   )
   let currentSection = useTableOfContents(tableOfContents)
 

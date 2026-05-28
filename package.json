@@ -20,6 +20,7 @@
     "clsx": "^2.1.1",
     "focus-visible": "^5.2.1",
     "fuse.js": "^7.3.0",
+    "gray-matter": "^4.0.3",
     "next": "^16.2.6",
     "postcss-focus-visible": "^11.0.0",
     "postcss-import": "^16.1.1",

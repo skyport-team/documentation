@@ -1,7 +1,8 @@
+"use client"
+
 import { useEffect, useState, useRef, Fragment } from 'react'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import Link from 'next/link'
-import Router from 'next/router'
 import Fuse from 'fuse.js'
 
 function SearchIcon(props) {

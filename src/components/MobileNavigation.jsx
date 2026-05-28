@@ -1,6 +1,8 @@
+"use client"
+
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { Dialog } from '@headlessui/react'
 
 import { Logomark } from '@/components/Logo'
@@ -37,24 +39,13 @@ function CloseIcon(props) {
 }
 
 export function MobileNavigation({ navigation }) {
-  let router = useRouter()
+  let pathname = usePathname()
   let [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     if (!isOpen) return
-
-    function onRouteChange() {
-      setIsOpen(false)
-    }
-
-    router.events.on('routeChangeComplete', onRouteChange)
-    router.events.on('routeChangeError', onRouteChange)
-
-    return () => {
-      router.events.off('routeChangeComplete', onRouteChange)
-      router.events.off('routeChangeError', onRouteChange)
-    }
-  }, [router, isOpen])
+    setIsOpen(false)
+  }, [pathname])
 
   return (
     <>

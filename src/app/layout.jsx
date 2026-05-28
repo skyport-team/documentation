@@ -1,4 +1,13 @@
-import { Head, Html, Main, NextScript } from 'next/document'
+import '@/styles/tailwind.css'
+import 'focus-visible'
+
+export const metadata = {
+  title: {
+    template: '%s - Skyport',
+    default: 'Skyport Documentation',
+  },
+  description: 'Skyport Documentation - Guide and API Reference',
+}
 
 const themeScript = `
   let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
@@ -51,23 +60,17 @@ const themeScript = `
   window.addEventListener('storage', updateThemeWithoutTransitions)
 `
 
-export default function Document() {
+export default function RootLayout({ children }) {
   return (
-    <Html className="antialiased [font-feature-settings:'ss01']" lang="en">
-      <Head>
-        <meta charSet="utf-8" />
-
-        {/* Favicon */}
+    <html className="antialiased [font-feature-settings:'ss01']" lang="en" suppressHydrationWarning>
+      <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
-
-        {/* Theme Script */}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </Head>
-      <body className="bg-white dark:bg-neutral-900">
-        <Main />
-        <NextScript />
+      </head>
+      <body className="bg-white dark:bg-neutral-900" suppressHydrationWarning>
+        {children}
       </body>
-    </Html>
+    </html>
   )
 }
