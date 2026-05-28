@@ -4,9 +4,7 @@ const withMarkdoc = require('@markdoc/next.js')
 const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'md'],
-  swcMinify: true,
   experimental: {
-    newNextLinkBehavior: true,
     scrollRestoration: true,
   },
   async headers() {
