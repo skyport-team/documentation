@@ -3,8 +3,6 @@ Allow: /
 
 Sitemap: https://skyport.dev/sitemap.xml
 
-# Crawl-delay to prevent overwhelming the server
-Crawl-delay: 10
 
 # Directories to exclude
 Disallow: /api/
