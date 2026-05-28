@@ -44,7 +44,6 @@ export function Hero() {
               alt=""
               width={530}
               height={530}
-              unoptimized
               priority
             />
             <div className="relative">
@@ -78,7 +77,6 @@ export function Hero() {
                 alt=""
                 width={530}
                 height={530}
-                unoptimized
                 priority
               />
               <Image
@@ -87,7 +85,6 @@ export function Hero() {
                 alt=""
                 width={567}
                 height={567}
-                unoptimized
                 priority
               />
               <div className="relative rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur">

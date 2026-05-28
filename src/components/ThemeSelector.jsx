@@ -63,7 +63,7 @@ export function ThemeSelector(props) {
   return (
     <Listbox
       as="div"
-      value={selectedTheme}
+      value={selectedTheme || themes[2]}
       onChange={setSelectedTheme}
       {...props}
     >
